@@ -15,7 +15,6 @@ function List() {
     const [task, setTask] = useState();
     return(
         <div className="list">
-            <h2>TODO list</h2>
             <div className="add_element">
                 <textarea className="input_task"  placeholder="Write your task here"  value={task} onChange={e => setTask(e.target.value)}/>
                 <button className="add_button" onClick={AddElement}>

@@ -4,10 +4,12 @@ import { listItems } from "../storage";
 
 function Element(line) {
     const DeleteElement = () => {
-       let index = listItems.findIndex(Item => {Item.id === line.id});
-       listItems.splice(index, 1);
+
+       let index = listItems.findIndex(item => item.id === line.id);
+       if(index !== -1){
+            listItems.splice(index, 1);
+        }
     };  
-console.log(line);
     return(
         <div className="element">
             <div className="task">

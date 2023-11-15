@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Page from './page';
 
 
-class App extends Component {
-  render() {
+function App () {
     return (
       <div className="App">
         <Page/>
       </div>
     );
-  }
+  
 }
 
 export default App;
