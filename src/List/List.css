@@ -1,0 +1,11 @@
+.list {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.add_button{
+    margin-bottom: 20px;
+}

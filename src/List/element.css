@@ -1,0 +1,21 @@
+.element {
+    display: flex;
+    width: 500px;
+    height: 150px;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px ridge rgb(0, 0, 0);
+    
+}
+.button_group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2px;
+}
+.edit_button  {
+    margin-bottom: 20px;
+    
+}
+.submit_button {
+    margin-bottom: 20px;
+}
