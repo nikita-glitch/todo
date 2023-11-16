@@ -6,10 +6,13 @@ import { listItems } from '../storage'
 function List() {
     const [task, setTask] = useState();
     const AddElement = () => {
-        listItems.push({
+        if(task) {
+            listItems.push({
             id: Date.now(),
-            todoTask: `${task}`
-        });
+            todoTask: `${task}`,
+            isChecked: false
+            });
+        }
         setTask('');
     };
     return(
@@ -23,7 +26,7 @@ function List() {
             </div>
             {listItems.map(item => 
        
-                <Element key={item.id} value={item.todoTask} id={item.id}/>
+                <Element key={item.id} value={item.todoTask} id={item.id} isChecked={item.isChecked}/>
             )}
             
         </div>
