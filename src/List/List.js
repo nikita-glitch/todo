@@ -4,27 +4,26 @@ import './List.css'
 import { listItems } from '../storage'
 
 function List() {
+    const [task, setTask] = useState();
     const AddElement = () => {
         listItems.push({
             id: Date.now(),
-            line: `${task}`
+            todoTask: `${task}`
         });
         setTask('');
-        console.log(listItems);
     };
-    const [task, setTask] = useState();
     return(
         <div className="list">
             <div className="add_element">
                 <textarea className="input_task"  placeholder="Write your task here"  value={task} onChange={e => setTask(e.target.value)}/>
                 <button className="add_button" onClick={AddElement}>
-                    Add item
+                    Add task
                 </button>
                 
             </div>
-            {listItems.map(Item => 
+            {listItems.map(item => 
        
-                <Element key={Item.id} value={Item.line} id={Item.id}/>
+                <Element key={item.id} value={item.todoTask} id={item.id}/>
             )}
             
         </div>
