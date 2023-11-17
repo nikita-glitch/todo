@@ -8,17 +8,16 @@ function Page() {
   const [listItem, setListItem] = useState([]);
   const [input, setInput] = useState('')
   function addElement() {
-    const buf = listItem.slice()
-    console.log('avav');
+    if(!input) { return }
+    const buf = listItem.slice();
     buf.push({
       id: Date.now(),
       todoTask: `${input}`,
       isChecked: false
     });
     setListItem(buf);
-
   }
-  
+   
   return (
     <div>
       <h1 style={{
@@ -28,14 +27,8 @@ function Page() {
       >
         TODO
       </h1>
-      <textarea
-          className="input_task"
-          placeholder="Write your task here"
-          value={input}
-          onChange={(e) => 
-            setInput(e.target.value)}
-        />
-      <List value={listItem} onAddElementClick={addElement} />
+      
+      <List value={listItem} onAddElementClick={addElement} textInput={input} onInputChange={setInput}/>
     </div>
   );
 }

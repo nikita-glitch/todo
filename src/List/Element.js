@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import './element.css'
-import { listItems } from "../storage";
+//import { listItems } from "../storage";
 
-function Element({ value, todoTask, setTodoTask }) {
+function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdit, onDeleteTask }) {
   console.log(value);
-  const [edit, setEdit] = useState(false);
+  
 
   // const deleteElement = () => {
   //   let index = listItems.findIndex(item => item.id === todoTask.id);
@@ -31,29 +31,32 @@ function Element({ value, todoTask, setTodoTask }) {
     <div className="element">
       <input type="checkbox" />
       {edit ?
-        <div>
-          <input type="text" 
+        <Fragment>
+          <input 
+            type="text" 
+            onChange={e => onEditField(e.target.value)}
+            value={editInput}
           />
 
-          <button className="submit_button" >
+          <button className="submit_button" onClick={onSubmitEdit}>
             Submit
           </button>
-        </div>
+        </Fragment>
         :
-        <div>
+        <Fragment>
           <div className="task">
             {value.todoTask}
           </div>
 
-          <button className="edit_button" >
+          <button className="edit_button" onClick={onInputEdit}>
             Edit
           </button>
 
-        </div>
+        </Fragment>
       }
       <div className="button_group">
 
-        <button className="delete_button"  >
+        <button className="delete_button" onClick={onDeleteTask}>
           Delete
         </button>
       </div>

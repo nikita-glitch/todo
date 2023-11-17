@@ -9,12 +9,44 @@ import { listItems } from '../storage'
 //   reactCore.render()
 // }
 
-function List({ value, onAddElementClick }) {
-  console.log(value);
+function List({ value, onAddElementClick, input, onInputChange }) {
+  const [edit, setEdit] = useState(false);
+  const [submit, setSubmit] = useState();
+  const [deleteTask, setDeleteTask] = useState();
+  const [editText, setEditText] = useState();
+  function editTask() {
+  //  let index = value.findIndex(item => item.id === todoTask.id);
+   // if (index !== -1) {
+  //    listItems[index].todoTask = todoTask;
+    
+  }
+  function submitEdit() {
+    //  let index = value.findIndex(item => item.id === todoTask.id);
+     // if (index !== -1) {
+    //    listItems[index].todoTask = todoTask;
+      
+    }
+    function deleteTask() {
+      //  let index = value.findIndex(item => item.id === todoTask.id);
+       // if (index !== -1) {
+      //    listItems[index].todoTask = todoTask;
+        
+      }
+      function edit() {
+        //  let index = value.findIndex(item => item.id === todoTask.id);
+         // if (index !== -1) {
+        //    listItems[index].todoTask = todoTask;
+          
+        }
   return (
     <div className="list">
       <div className="add_element">
-        
+        <textarea
+          className="input_task"
+          placeholder="Write your task here"
+          value={input}
+          onChange={(e) => onInputChange(e.target.value)}
+        />
         <button className="add_button" onClick={onAddElementClick}>
           Add task
         </button>
@@ -25,7 +57,14 @@ function List({ value, onAddElementClick }) {
         <Element
           key={item.id}
           value={item}
-          
+          edit={edit}
+          submit={submit}
+          deleteTask={deleteTask}
+          editText={editText}
+          onEditField={setEdit}
+          onSubmitEdit={setSubmit}
+          onDeleteTask={setDeleteTask}
+          onInputEdit={editTask}
         />)}
     </div>
   );
