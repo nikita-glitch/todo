@@ -1,3 +1,1 @@
-export const listItems = [ 
-    
-]
+export const listItems = []

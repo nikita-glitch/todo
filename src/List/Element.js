@@ -2,50 +2,50 @@ import React, { useState } from "react";
 import './element.css'
 import { listItems } from "../storage";
 
-function Element(todoTask) {
-  const [value, setValue] = useState(todoTask.value);
+function Element({ value, todoTask, setTodoTask }) {
+  console.log(value);
   const [edit, setEdit] = useState(false);
 
-  const deleteElement = () => {
-    let index = listItems.findIndex(item => item.id === todoTask.id);
-    if (index === -1) { return }
-    listItems.splice(index, 1);
-  };
+  // const deleteElement = () => {
+  //   let index = listItems.findIndex(item => item.id === todoTask.id);
+  //   if (index === -1) { return }
+  //   listItems.splice(index, 1);
+  // };
 
-  const editElement = () => {
-    let index = listItems.findIndex(item => item.id === todoTask.id);
-    if (index !== -1) {
-      listItems[index].todoTask = value;
-    }
-    setEdit(false);
-  };
-  const handleInput = (ev) =>{
-    setValue(ev.target.value)
-  }
+  // const editElement = () => {
+  //   let index = listItems.findIndex(item => item.id === todoTask.id);
+  //   if (index !== -1) {
+  //     listItems[index].todoTask = todoTask;
+  //   }
+  //   setEdit(false);
+  // };
+  // const handleInput = (ev) =>{
+  //   setTodoTask(ev.target.value)
+  // }
 
-  const handleEdit = () => {
-    setEdit(true)
-  }
+  // const handleEdit = () => {
+  //   setEdit(true)
+  // }
 
   return (
     <div className="element">
       <input type="checkbox" />
       {edit ?
         <div>
-          <input type="text" value={value} onChange={handleInput}
+          <input type="text" 
           />
 
-          <button className="submit_button" onClick={editElement}>
+          <button className="submit_button" >
             Submit
           </button>
         </div>
         :
         <div>
           <div className="task">
-            {value}
+            {value.todoTask}
           </div>
 
-          <button className="edit_button" onClick={handleEdit}>
+          <button className="edit_button" >
             Edit
           </button>
 
@@ -53,7 +53,7 @@ function Element(todoTask) {
       }
       <div className="button_group">
 
-        <button className="delete_button" onClick={deleteElement} >
+        <button className="delete_button"  >
           Delete
         </button>
       </div>

@@ -9,47 +9,32 @@ import { listItems } from '../storage'
 //   reactCore.render()
 // }
 
-function List() {
-  const [task, setTask] = useState();
-
-  const addElement = () => {
-    if (!task) { return };
-
-    listItems.push({
-      id: Date.now(),
-      todoTask: `${task}`,
-      isChecked: false
-    });
-  };
-
-  const handleTextChange = (ev) => {
-    setTask(ev.target.value)
-  }
-
+function List({ value, onAddElementClick }) {
+  console.log(value);
   return (
     <div className="list">
       <div className="add_element">
-        <textarea
-          className="input_task"
-          placeholder="Write your task here"
-          value={task}
-          onChange={handleTextChange}
-        />
-        <button className="add_button" onClick={addElement}>
+        
+        <button className="add_button" onClick={onAddElementClick}>
           Add task
         </button>
 
       </div>
-      {listItems.map(item =>
+      
+      {value.map(item =>
         <Element
           key={item.id}
-          value={item.todoTask}
-          id={item.id}
-          isChecked={item.isChecked}
-        />
-      )}
-
+          value={item}
+          
+        />)}
     </div>
   );
 }
 export default List;
+/* {value.map(item =>
+        <Element
+          key={item.id}
+          value={item}
+          
+        />)}
+         */
