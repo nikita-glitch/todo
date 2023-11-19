@@ -17,7 +17,12 @@ function Page() {
     });
     setListItem(buf);
   }
-   
+  function deleteTodo(id) { // удалить по ключу
+    let index = listItem.findIndex(item => item.id === id);
+     if (index == -1) { return }
+     const filteredBuf = listItem.filter(todo => todo !== listItem[index]);
+     setListItem(filteredBuf);
+  }
   return (
     <div>
       <h1 style={{
@@ -28,7 +33,7 @@ function Page() {
         TODO
       </h1>
       
-      <List value={listItem} onAddElementClick={addElement} textInput={input} onInputChange={setInput}/>
+      <List value={listItem} onAddElementClick={addElement} textInput={input} onInputChange={setInput} deleteTodo={deleteTodo}/>
     </div>
   );
 }

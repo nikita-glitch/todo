@@ -3,7 +3,7 @@ import './element.css'
 //import { listItems } from "../storage";
 
 function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdit, onDeleteTask }) {
-  console.log(value);
+  //console.log(value);
   
 
   // const deleteElement = () => {
