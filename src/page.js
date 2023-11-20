@@ -35,8 +35,18 @@ function Page() {
     let index = listItem.findIndex(item => item.id === id);
     if (index === -1) { return }
     const checkBuf = listItem.slice();
-    checkBuf[index].isChecked = !isChecked;
-    setListItem(checkBuf);
+    if (isChecked) {
+      checkBuf[index].isChecked = !isChecked;
+      const item = checkBuf.splice(index, 1)[0];
+      checkBuf.splice(0, 0, item);
+      setListItem(checkBuf);
+    } else{
+      checkBuf[index].isChecked = !isChecked;
+      const item = checkBuf.splice(index, 1)[0];
+      checkBuf.splice(checkBuf.length, 1, item);
+      setListItem(checkBuf);
+    }
+   
   }
   return (
     <div>

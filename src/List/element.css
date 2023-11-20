@@ -31,3 +31,13 @@
 
     
 }
+.checked_element {
+    display: flex;
+    width: 500px;
+    height: 150px;
+    background-color: rgb(170, 170, 170);
+    justify-content: space-between;
+    align-items: center;
+    border: 2px ridge rgb(0, 0, 0);
+    margin-bottom: 10px;
+}

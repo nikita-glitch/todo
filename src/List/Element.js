@@ -7,7 +7,7 @@ function Element({
   editText,
   onEditText,
   onDeleteTask,
-  onCheck
+  onCheck,
 }) {
   const [edit, setEdit] = useState(false);
   function handleClick() {
@@ -15,36 +15,82 @@ function Element({
     setEdit(false);
   }
   function handleInput(ev) {
-    onEditText(ev.target.value)
+    onEditText(ev.target.value);
   }
   return (
-    <div className="element">
-      <input type="checkbox" onChange={onCheck}/>
-      {edit ? (
-        <Fragment>
-          <input
-            type="text"
-            onChange={handleInput}
-            value={editText}
+    <Fragment>
+      {value.isChecked ? (
+        <div className="checked_element">
+          <input 
+            type="checkbox" 
+            onChange={onCheck} 
           />
-          <button className="submit_button" onClick={handleClick}>
-            Submit
-          </button>
-        </Fragment>
+          <Fragment>
+            <div className="task">
+              {value.todoTask}
+            </div>
+            <button
+              className="edit_button"
+              disabled
+              onClick={() => setEdit(true)}
+            >
+              Edit
+            </button>
+          </Fragment>
+
+          <div className="button_group">
+            <button 
+              className="delete_button" 
+              onClick={onDeleteTask}
+              >
+              Delete
+            </button>
+          </div>
+        </div>
       ) : (
-        <Fragment>
-          <div className="task">{value.todoTask}</div>
-          <button className="edit_button" onClick={() => setEdit(true)}>
-            Edit
-          </button>
-        </Fragment>
+        <div className="element">
+          <input 
+            type="checkbox" 
+            onChange={onCheck} 
+          />
+          {edit ? (
+            <Fragment>
+              <input 
+                type="text" 
+                onChange={handleInput} 
+                value={editText} 
+              />
+              <button 
+                className="submit_button" 
+                onClick={handleClick}
+              >
+                Submit
+              </button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div className="task">
+                {value.todoTask}
+              </div>
+              <button 
+                className="edit_button" 
+                onClick={() => setEdit(true)}
+              >
+                Edit
+              </button>
+            </Fragment>
+          )}
+          <div className="button_group">
+            <button 
+              className="delete_button" 
+              onClick={onDeleteTask}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       )}
-      <div className="button_group">
-        <button className="delete_button" onClick={onDeleteTask}>
-          Delete
-        </button>
-      </div>
-    </div>
+    </Fragment>
   );
 }
 export default Element;
