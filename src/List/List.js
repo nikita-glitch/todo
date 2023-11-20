@@ -11,7 +11,7 @@ import "./List.css";
 function List({
   value,
   onAddElementClick,
-  input,
+  textInput,
   onInputChange,
   deleteTodo,
   submitEdit,
@@ -24,15 +24,14 @@ function List({
   return (
     <div className="list">
       <div className="add_element">
-        <form>
           <input
             className="input_task"
+            type="text"
             placeholder="Write your task here"
-            value={input}
             onChange={handleInput}
+            value={textInput}
           />
-        </form>
-        <button className="add_button" onClick={() => {onAddElementClick(); onInputChange}}>
+        <button className="add_button" onClick={onAddElementClick}>
           Add task
         </button>
       </div>

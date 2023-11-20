@@ -6,7 +6,6 @@ import './page.css';
 function Page() {
   const [listItem, setListItem] = useState([]);
   const [input, setInput] = useState('');
-  console.log(input);
   function addElement() {
     if(!input) { return }
     const buf = listItem.slice();
@@ -16,6 +15,7 @@ function Page() {
       isChecked: false
     });    
     setListItem(buf);
+    setInput('');
   }
   function deleteTodo(id) { 
     let index = listItem.findIndex(item => item.id === id);
