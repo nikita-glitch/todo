@@ -2,10 +2,10 @@ import React, { Fragment, useState } from "react";
 import './element.css'
 //import { listItems } from "../storage";
 
-function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdit, onDeleteTask }) {
+function Element({ value,  onEditField, onSubmitEdit, editText, onEditText, onDeleteTask }) {
   //console.log(value);
-  
-
+  const [edit, setEdit] = useState(false);
+    const [submit, setSubmit] = useState(false)
   // const deleteElement = () => {
   //   let index = listItems.findIndex(item => item.id === todoTask.id);
   //   if (index === -1) { return }
@@ -19,9 +19,7 @@ function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdi
   //   }
   //   setEdit(false);
   // };
-  // const handleInput = (ev) =>{
-  //   setTodoTask(ev.target.value)
-  // }
+
 
   // const handleEdit = () => {
   //   setEdit(true)
@@ -34,8 +32,8 @@ function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdi
         <Fragment>
           <input 
             type="text" 
-            onChange={e => onEditField(e.target.value)}
-            value={editInput}
+            onChange={(e) => onEditText(e.target.value)}
+            value={editText}
           />
 
           <button className="submit_button" onClick={onSubmitEdit}>
@@ -48,7 +46,7 @@ function Element({ value, edit, onEditField, onSubmitEdit, editInput, onInputEdi
             {value.todoTask}
           </div>
 
-          <button className="edit_button" onClick={onInputEdit}>
+          <button className="edit_button" onClick={() => setEdit(true)}>
             Edit
           </button>
 

@@ -9,24 +9,19 @@ import { listItems } from '../storage'
 //   reactCore.render()
 // }
 
-function List({ value, onAddElementClick, input, onInputChange, deleteTodo }) {
-  const [edit, setEdit] = useState(false);
+function List({ value, onAddElementClick, input, onInputChange, deleteTodo, submitEdit }) {
+  // const [edit, setEdit] = useState(false);
   const [submit, setSubmit] = useState();
- 
-  const [editText, setEditText] = useState();
-  function editTask() {
-  //  let index = value.findIndex(item => item.id === todoTask.id);
-   // if (index !== -1) {
-  //    listItems[index].todoTask = todoTask;
-    
-  }
-  function submitEdit() {
-    //  let index = value.findIndex(item => item.id === todoTask.id);
-     // if (index !== -1) {
-    //    listItems[index].todoTask = todoTask;
+  const [editText, setEditText] = useState('');
+ // console.log(editText);
+  
+  // function submitEdit() {
+  //   //  let index = value.findIndex(item => item.id === todoTask.id);
+  //    // if (index !== -1) {
+  //   //    listItems[index].todoTask = todoTask;
       
-    }
-   
+  //   }
+ 
       // function edit() {
       //   //  let index = value.findIndex(item => item.id === todoTask.id);
       //    // if (index !== -1) {
@@ -52,22 +47,13 @@ function List({ value, onAddElementClick, input, onInputChange, deleteTodo }) {
         <Element
           key={item.id}
           value={item}
-          edit={edit}
           submit={submit}
           editText={editText}
-          onEditField={setEdit}
-          onSubmitEdit={setSubmit}
+          onEditText={setEditText}
+          onSubmitEdit={() => submitEdit(item.id, editText)}
           onDeleteTask={() => deleteTodo(item.id)}
-          onInputEdit={editTask}
         />)}
     </div>
   );
 }
 export default List;
-/* {value.map(item =>
-        <Element
-          key={item.id}
-          value={item}
-          
-        />)}
-         */

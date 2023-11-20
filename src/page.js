@@ -7,6 +7,7 @@ import './page.css';
 function Page() {
   const [listItem, setListItem] = useState([]);
   const [input, setInput] = useState('')
+  console.log(listItem);
   function addElement() {
     if(!input) { return }
     const buf = listItem.slice();
@@ -17,11 +18,18 @@ function Page() {
     });
     setListItem(buf);
   }
-  function deleteTodo(id) { // удалить по ключу
+  function deleteTodo(id) { 
     let index = listItem.findIndex(item => item.id === id);
      if (index == -1) { return }
      const filteredBuf = listItem.filter(todo => todo !== listItem[index]);
      setListItem(filteredBuf);
+  }
+  function submitEdit(id, editText) {
+    let index = listItem.findIndex(item => item.id === id);
+    if (index == -1) { return }
+    const editBuf = listItem.slice();
+    editBuf[index].todoTask = editText
+    setListItem(editBuf)
   }
   return (
     <div>
@@ -33,7 +41,14 @@ function Page() {
         TODO
       </h1>
       
-      <List value={listItem} onAddElementClick={addElement} textInput={input} onInputChange={setInput} deleteTodo={deleteTodo}/>
+      <List 
+        value={listItem}
+        onAddElementClick={addElement} 
+        textInput={input} 
+        onInputChange={setInput} 
+        deleteTodo={deleteTodo} 
+        submitEdit={submitEdit}
+      />
     </div>
   );
 }
