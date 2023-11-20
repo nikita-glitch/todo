@@ -6,7 +6,7 @@ import './page.css';
 function Page() {
   const [listItem, setListItem] = useState([]);
   const [input, setInput] = useState('');
-
+  console.log(input);
   function addElement() {
     if(!input) { return }
     const buf = listItem.slice();
@@ -31,6 +31,13 @@ function Page() {
     editBuf[index].todoTask = editText;
     setListItem(editBuf);
   }
+  function setChecked(id, isChecked) {
+    let index = listItem.findIndex(item => item.id === id);
+    if (index === -1) { return }
+    const checkBuf = listItem.slice();
+    checkBuf[index].isChecked = !isChecked;
+    setListItem(checkBuf);
+  }
   return (
     <div>
       <h1 style={{
@@ -48,6 +55,7 @@ function Page() {
         onInputChange={setInput} 
         deleteTodo={deleteTodo} 
         submitEdit={submitEdit}
+        setChecked={setChecked}
       />
     </div>
   );

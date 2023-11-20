@@ -6,21 +6,28 @@ function Element({
   onSubmitEdit,
   editText,
   onEditText,
-  onDeleteTask
+  onDeleteTask,
+  onCheck
 }) {
   const [edit, setEdit] = useState(false);
-
+  function handleClick() {
+    onSubmitEdit();
+    setEdit(false);
+  }
+  function handleInput(ev) {
+    onEditText(ev.target.value)
+  }
   return (
     <div className="element">
-      <input type="checkbox" />
+      <input type="checkbox" onChange={onCheck}/>
       {edit ? (
         <Fragment>
           <input
             type="text"
-            onChange={(e) => onEditText(e.target.value)}
+            onChange={handleInput}
             value={editText}
           />
-          <button className="submit_button" onClick={() => {onSubmitEdit(); setEdit(false)}}>
+          <button className="submit_button" onClick={handleClick}>
             Submit
           </button>
         </Fragment>
