@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import List from "./List/List";
 import "./page.css";
+import Footer from "./Footer";
 
 function Page() {
   const [listItem, setListItem] = useState([]);
@@ -12,15 +13,20 @@ function Page() {
         id: Date.now(),
         todoTask: input,
         isChecked: false,
-      },
+      }
     ]);
+    //setComplitedTasks((prevState) => prevState + 1);
   }
-
+  const countCompletedTasks = () => {
+    let count = listItem.filter((item) => item.isChecked === false);
+   // setComplitedTasks(count.length)
+}
   function deleteTodo(item) {
     const id = item.id;
     const filteredBuf = listItem.filter((todo) => todo.id !== id);
     setListItem(filteredBuf);
-  }
+  //  setComplitedTasks((prevState) => prevState - 1);
+    }
 
   function submitEdit(id, editText) {
     if (!editText) {
@@ -38,8 +44,14 @@ function Page() {
   const setChecked = (item) => {
     const id = item.id;
     const isChecked = item.isChecked;
+ 
     const index = listItem.findIndex((todo) => todo.id === id);
     const checkedBuf = listItem.slice();
+    // if (isChecked) {
+    //   setComplitedTasks((prevState) => prevState + 1);    
+    // } else {
+    //   setComplitedTasks((prevState) => prevState - 1);
+    // }
     checkedBuf[index].isChecked = !isChecked;
     setListItem(checkedBuf);
   };
@@ -61,18 +73,7 @@ function Page() {
         submitEdit={submitEdit}
         setChecked={setChecked}
       />
-      <footer>
-        {completedTasks === 1 ? (
-          <>{completedTasks} item left</>
-        ) : (
-          <>{completedTasks} items left</>
-        )}
-        <ul className="filters">
-          <li>All</li>
-          <li>Active</li>
-          <li>Completed</li>
-        </ul>
-      </footer>
+      <Footer value={listItem}/>
     </>
   );
 }
