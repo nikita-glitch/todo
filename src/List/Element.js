@@ -47,7 +47,7 @@ function Element({
             </button>
           </div>
         </div>
-      ) : (
+        ) : (
         <div className="element">
           <input 
             type="checkbox" 
@@ -57,6 +57,7 @@ function Element({
             <Fragment>
               <input 
                 type="text" 
+                placeholder={value.todoTask}
                 onChange={handleInput} 
                 value={editText} 
               />
