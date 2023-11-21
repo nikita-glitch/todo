@@ -8,47 +8,49 @@ import "./List.css";
 //   reactCore.render()
 // }
 
-
 function List({
   value,
   onAddElementClick,
-  textInput,
-  onInputChange,
   deleteTodo,
   submitEdit,
-  setChecked
+  setChecked,
 }) {
-  const [editText, setEditText] = useState("");
-  function handleInput(ev) {
-    onInputChange(ev.target.value)
-  }//инпут и кнока должны быть изолированы
+  const [input, setInput] = useState("");
+  const handleSubmitForm = (ev) => {
+    ev.preventDefault();
+    if (!input) {
+      return;
+    }
+    onAddElementClick(input);
+    setInput('');
+  }
+  const handleInputForm = (ev) => {
+    setInput(ev.target.value);
+
+  } 
+  const handleSubmitEdit = (editText, item) => {
+    submitEdit(item.id, editText);
+  }
   return (
     <div className="list">
       <div className="add_element">
+        <form onSubmit={handleSubmitForm}>
           <input
             className="input_task"
             type="text"
-            placeholder="Write your task here"
-            onChange={handleInput}
-            value={textInput}
+            placeholder="What needs to be done?"
+            onChange={handleInputForm}
+            value={input}
           />
-        <button className="add_button" onClick={onAddElementClick}>
-          Add task
-        </button>
+        </form>
       </div>
-
       {value.map((item) => (
         <TodoItem
-          key={item.id}//убрать в хендлеры
+          key={item.id} 
           value={item}
-          editText={editText}
-          onCheck={() => setChecked(item.id, item.isChecked)}
-          onEditText={setEditText}
-          onSubmitEdit={() => {
-            submitEdit(item.id, editText); 
-            setEditText('')
-          }}
-          onDeleteTask={() => deleteTodo(item.id)}
+          onCheck={() => setChecked(item)}
+          onSubmitEdit={(editText) => handleSubmitEdit(editText, item)}
+          onDeleteTask={() => deleteTodo(item)}
         />
       ))}
     </div>

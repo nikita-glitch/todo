@@ -4,82 +4,45 @@ import "./element.css";
 function TodoItem({
   value,
   onSubmitEdit,
-  editText,
-  onEditText,
   onDeleteTask,
-  onCheck,
+  onCheck
 }) {
   const [edit, setEdit] = useState(false);
-  function handleClick() {
-    onSubmitEdit();
+  const [editedText, setEditedText] = useState(value.todoTask);
+  const handleEditedForm = (ev) => {
+    ev.preventDefault();
+    if (!editedText) {
+      return;
+    }
+    onSubmitEdit(editedText);
     setEdit(false);
   }
-  function handleInput(ev) {
-    onEditText(ev.target.value);
-  }// меняется только класс, верстку не менять
+  const handleInput = (ev) => {
+    setEditedText(ev.target.value);
+  }
   return (
     <>
-      {value.isChecked ? (
-        <div className="checked_element"> 
-          <input 
-            type="checkbox" 
-            onChange={onCheck} 
-          />
-          <>
-            <div className="task">
-              {value.todoTask}
-            </div>
-            <button
-              className="edit_button"
-              disabled
-              onClick={() => setEdit(true)}
-            >
-              Edit
-            </button>
-          </>
-
-          <div className="button_group">
-            <button 
-              className="delete_button" 
-              onClick={onDeleteTask}
-              >
-              Delete
-            </button>
-          </div>
-        </div>
-        ) : (
-        <div className="element">
+      <div className={value.isChecked ? "checked_element" : 'element'}> 
           <input 
             type="checkbox" 
             onChange={onCheck} 
           />
           {edit ? (
-            <>
+            <form onSubmit={handleEditedForm}>
               <input 
+                className="editing"
                 type="text" 
-                placeholder={value.todoTask}
                 onChange={handleInput} 
-                value={editText} 
+                value={editedText} 
               />
-              <button 
-                className="submit_button" 
-                onClick={handleClick}
-              >
-                Submit
-              </button>
-            </>
+            </form>
           ) : (
-            <Fragment>
-              <div className="task">
+            <>
+              <div className="task" onDoubleClick={() => setEdit(true)}>
                 {value.todoTask}
               </div>
-              <button 
-                className="edit_button" 
-                onClick={() => setEdit(true)}
-              >
-                Edit
-              </button>
-            </Fragment>
+              
+            </>
           )}
           <div className="button_group">
             <button 
@@ -90,7 +53,7 @@ function TodoItem({
             </button>
           </div>
         </div>
-      )}
+      
     </>
   );
 }
