@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import "./element.css";
 
-function Element({
+function TodoItem({
   value,
   onSubmitEdit,
   editText,
@@ -16,16 +16,16 @@ function Element({
   }
   function handleInput(ev) {
     onEditText(ev.target.value);
-  }
+  }// меняется только класс, верстку не менять
   return (
-    <Fragment>
+    <>
       {value.isChecked ? (
-        <div className="checked_element">
+        <div className="checked_element"> 
           <input 
             type="checkbox" 
             onChange={onCheck} 
           />
-          <Fragment>
+          <>
             <div className="task">
               {value.todoTask}
             </div>
@@ -36,7 +36,7 @@ function Element({
             >
               Edit
             </button>
-          </Fragment>
+          </>
 
           <div className="button_group">
             <button 
@@ -54,7 +54,7 @@ function Element({
             onChange={onCheck} 
           />
           {edit ? (
-            <Fragment>
+            <>
               <input 
                 type="text" 
                 placeholder={value.todoTask}
@@ -67,7 +67,7 @@ function Element({
               >
                 Submit
               </button>
-            </Fragment>
+            </>
           ) : (
             <Fragment>
               <div className="task">
@@ -91,7 +91,7 @@ function Element({
           </div>
         </div>
       )}
-    </Fragment>
+    </>
   );
 }
-export default Element;
+export default TodoItem;

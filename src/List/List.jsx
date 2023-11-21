@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Element from "./Element";
+import TodoItem from "./TodoItem";
 import "./List.css";
 
 // let reactState;
@@ -7,6 +7,7 @@ import "./List.css";
 //   reactState = value;
 //   reactCore.render()
 // }
+
 
 function List({
   value,
@@ -20,7 +21,7 @@ function List({
   const [editText, setEditText] = useState("");
   function handleInput(ev) {
     onInputChange(ev.target.value)
-  }
+  }//инпут и кнока должны быть изолированы
   return (
     <div className="list">
       <div className="add_element">
@@ -37,8 +38,8 @@ function List({
       </div>
 
       {value.map((item) => (
-        <Element
-          key={item.id}
+        <TodoItem
+          key={item.id}//убрать в хендлеры
           value={item}
           editText={editText}
           onCheck={() => setChecked(item.id, item.isChecked)}
