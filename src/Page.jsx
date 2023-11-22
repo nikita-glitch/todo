@@ -50,11 +50,25 @@ function Page() {
     setListItem(checkedBuf);
   };
   const setAllChecked = () => {
-    const arr = listItem.map((item) => {
-      item.isChecked = !item.isChecked;
-      return item;
-    });
-    setListItem(arr);
+    if (!listItem) {
+      return
+    }
+    const arr = listItem.every((item) => item.isChecked === true);
+    if (arr) {
+      setListItem(
+        listItem.map((item) => {
+          item.isChecked = false;
+          return item;
+        })
+      );
+    } else {
+      setListItem(
+        listItem.map((item) => {
+          item.isChecked = true;
+          return item;
+        })
+      );
+    }
   };
   return (
     <>

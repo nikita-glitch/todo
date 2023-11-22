@@ -17,7 +17,9 @@ function List({
   setAllChecked
 }) {
   const [input, setInput] = useState("");
+  const check = value.every(item => item.isChecked === true)
   const handleSubmitForm = (ev) => {
+    
     ev.preventDefault();
     if (!input) {
       return;
@@ -34,7 +36,7 @@ function List({
   }
   return (
     <div className="list">
-      <input type="checkbox" onChange={setAllChecked}/>
+      <input className={value.length ? "visible_checkbox" : 'invisible_checkbox'} type="checkbox" onChange={setAllChecked} checked={check ? true : false}/>
       <div className="add_element">
         <form onSubmit={handleSubmitForm}>
           <input
