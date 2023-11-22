@@ -6,27 +6,25 @@ import Footer from "./Footer";
 function Page() {
   const [listItem, setListItem] = useState([]);
   const [completedTasks, setComplitedTasks] = useState(0);
+
   function addElement(input) {
-    setListItem([
+    const buf = [
       ...listItem,
       {
         id: Date.now(),
         todoTask: input,
         isChecked: false,
-      }
-    ]);
-    //setComplitedTasks((prevState) => prevState + 1);
+      },
+    ];
+    setListItem(buf);
+    countTasks(buf);
   }
-  const countCompletedTasks = () => {
-    let count = listItem.filter((item) => item.isChecked === false);
-   // setComplitedTasks(count.length)
-}
   function deleteTodo(item) {
     const id = item.id;
     const filteredBuf = listItem.filter((todo) => todo.id !== id);
     setListItem(filteredBuf);
-  //  setComplitedTasks((prevState) => prevState - 1);
-    }
+    countTasks(filteredBuf);
+  }
 
   function submitEdit(id, editText) {
     if (!editText) {
@@ -42,19 +40,17 @@ function Page() {
   }
 
   const setChecked = (item) => {
-    const id = item.id;
-    const isChecked = item.isChecked;
- 
+    const { id, isChecked } = item;
     const index = listItem.findIndex((todo) => todo.id === id);
     const checkedBuf = listItem.slice();
-    // if (isChecked) {
-    //   setComplitedTasks((prevState) => prevState + 1);    
-    // } else {
-    //   setComplitedTasks((prevState) => prevState - 1);
-    // }
     checkedBuf[index].isChecked = !isChecked;
     setListItem(checkedBuf);
+    countTasks(checkedBuf);
   };
+  const countTasks = (buf) => {
+    const count = buf.filter((item) => item.isChecked === false);
+    setComplitedTasks(count.length);
+  }
   return (
     <>
       <h1
@@ -73,7 +69,14 @@ function Page() {
         submitEdit={submitEdit}
         setChecked={setChecked}
       />
-      <Footer value={listItem}/>
+      <Footer
+        listItem={listItem}
+        setListItem={setListItem}
+        completedTasks={completedTasks}
+        //all={allItems}
+        //active={activeItems}
+        //completed={completedItems}
+      />
     </>
   );
 }
