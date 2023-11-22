@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./footer.css";
 
 const Footer = ({
   completedTasks,
@@ -23,18 +24,24 @@ const Footer = ({
   };
 
   return (
-    <>
+    <div className="footer">
       {completedTasks === 1 ? (
         <>{completedTasks} item left</>
       ) : (
         <>{completedTasks} items left</>
       )}
       <ul className="filters">
-        <div className="filter_button" onClick={allButtonHandler}>All</div>
-        <div className="filter_button" onClick={activeButtonHandler}>Active</div>
-        <div className="filter_button" onClick={completedButtonHandler}>Completed</div>
+        <div className="filter_button" onClick={allButtonHandler}>
+          All
+        </div>
+        <div className="filter_button" onClick={activeButtonHandler}>
+          Active
+        </div>
+        <div className="filter_button" onClick={completedButtonHandler}>
+          Completed
+        </div>
       </ul>
-    </>
+    </div>
   );
 };
 
