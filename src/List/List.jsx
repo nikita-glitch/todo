@@ -14,6 +14,7 @@ function List({
   deleteTodo,
   submitEdit,
   setChecked,
+  setAllChecked
 }) {
   const [input, setInput] = useState("");
   const handleSubmitForm = (ev) => {
@@ -33,6 +34,7 @@ function List({
   }
   return (
     <div className="list">
+      <input type="checkbox" onChange={setAllChecked}/>
       <div className="add_element">
         <form onSubmit={handleSubmitForm}>
           <input

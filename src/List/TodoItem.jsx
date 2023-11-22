@@ -26,6 +26,7 @@ function TodoItem({
           <input 
             type="checkbox" 
             onChange={onCheck} 
+            checked={value.isChecked}
           />
           {edit ? (
             <form onSubmit={handleEditedForm}>

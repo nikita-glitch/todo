@@ -49,7 +49,13 @@ function Page() {
     checkedBuf[index].isChecked = !isChecked;
     setListItem(checkedBuf);
   };
-
+  const setAllChecked = () => {
+    const arr = listItem.map((item) => {
+      item.isChecked = !item.isChecked;
+      return item;
+    });
+    setListItem(arr);
+  };
   return (
     <>
       <h1
@@ -62,11 +68,12 @@ function Page() {
       </h1>
 
       <List
-        value={allFlag ? listItem :(activeFlag ? activeArray : complitedArray)}
+        value={allFlag ? listItem : activeFlag ? activeArray : complitedArray}
         onAddElementClick={addElement}
         deleteTodo={deleteTodo}
         submitEdit={submitEdit}
         setChecked={setChecked}
+        setAllChecked={setAllChecked}
       />
       <Footer
         completedTasks={activeArray.length}

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 const Footer = ({
-  //listItem,
-  //setListItem,
   completedTasks,
   setAllFlag,
   setActiveFlag,
@@ -32,9 +30,9 @@ const Footer = ({
         <>{completedTasks} items left</>
       )}
       <ul className="filters">
-        <div onClick={allButtonHandler}>All</div>
-        <div onClick={activeButtonHandler}>Active</div>
-        <div onClick={completedButtonHandler}>Completed</div>
+        <div className="filter_button" onClick={allButtonHandler}>All</div>
+        <div className="filter_button" onClick={activeButtonHandler}>Active</div>
+        <div className="filter_button" onClick={completedButtonHandler}>Completed</div>
       </ul>
     </>
   );
