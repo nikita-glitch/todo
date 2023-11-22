@@ -1,37 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const Footer = ({ listItem, setListItem, completedTasks }) => {
-  const [store, setStore] = useState(listItem)
-  const [allItems, setAllItems] = useState(listItem);
-  const [activeItems, setActiveItems] = useState(listItem);
-  const [completedItems, setCompletedItems] = useState([]);
-
-  
-
+const Footer = ({
+  //listItem,
+  //setListItem,
+  completedTasks,
+  setAllFlag,
+  setActiveFlag,
+  setCompletedFlag,
+}) => {
   const allButtonHandler = () => {
-    //setStore(listItem.slice());
-    //const buf = listItem.slice();
-    // setAllItems(activeItems.concat(completedItems))
-    setListItem(listItem)
-
+    setAllFlag(true);
+    setActiveFlag(false);
+    setCompletedFlag(false);
   };
   const activeButtonHandler = () => {
-    const bufArr = listItem.filter((item) => item.isChecked === false);
-    if (bufArr){}
-    setActiveItems(bufArr);
-    //setListItem(activeItems)
-    
+    setAllFlag(false);
+    setActiveFlag(true);
+    setCompletedFlag(false);
   };
   const completedButtonHandler = () => {
-    const bufArr = listItem.filter((item) => item.isChecked === true);
-    setCompletedItems(bufArr);
-    //setListItem(completedItems)
+    setAllFlag(false);
+    setActiveFlag(false);
+    setCompletedFlag(true);
   };
-  // console.log(allItems, 'all');
-  // console.log(activeItems, 'active');
-  // console.log(completedItems, 'complete');
-  // console.log(listItem, 'list');    
-  // console.log(store, 'store');
+
   return (
     <>
       {completedTasks === 1 ? (

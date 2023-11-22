@@ -5,7 +5,12 @@ import Footer from "./Footer";
 
 function Page() {
   const [listItem, setListItem] = useState([]);
-  const [completedTasks, setComplitedTasks] = useState(0);
+  const [allFlag, setAllFlag] = useState(true);
+  const [activeFlag, setActiveFlag] = useState(false);
+  const [completedFlag, setCompletedFlag] = useState(false);
+
+  const complitedArray = listItem.filter((item) => item.isChecked === true);
+  const activeArray = listItem.filter((item) => item.isChecked === false);
 
   function addElement(input) {
     const buf = [
@@ -17,13 +22,11 @@ function Page() {
       },
     ];
     setListItem(buf);
-    countTasks(buf);
   }
   function deleteTodo(item) {
     const id = item.id;
     const filteredBuf = listItem.filter((todo) => todo.id !== id);
     setListItem(filteredBuf);
-    countTasks(filteredBuf);
   }
 
   function submitEdit(id, editText) {
@@ -45,12 +48,8 @@ function Page() {
     const checkedBuf = listItem.slice();
     checkedBuf[index].isChecked = !isChecked;
     setListItem(checkedBuf);
-    countTasks(checkedBuf);
   };
-  const countTasks = (buf) => {
-    const count = buf.filter((item) => item.isChecked === false);
-    setComplitedTasks(count.length);
-  }
+
   return (
     <>
       <h1
@@ -63,19 +62,17 @@ function Page() {
       </h1>
 
       <List
-        value={listItem}
+        value={allFlag ? listItem :(activeFlag ? activeArray : complitedArray)}
         onAddElementClick={addElement}
         deleteTodo={deleteTodo}
         submitEdit={submitEdit}
         setChecked={setChecked}
       />
       <Footer
-        listItem={listItem}
-        setListItem={setListItem}
-        completedTasks={completedTasks}
-        //all={allItems}
-        //active={activeItems}
-        //completed={completedItems}
+        completedTasks={activeArray.length}
+        setAllFlag={setAllFlag}
+        setActiveFlag={setActiveFlag}
+        setCompletedFlag={setCompletedFlag}
       />
     </>
   );
