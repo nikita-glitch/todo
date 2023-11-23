@@ -18,26 +18,33 @@ function TodoItem({ value, onSubmitEdit, onDeleteTask, onCheck }) {
   return (
     <>
       <div className={value.isChecked ? "checked_element" : "element"}>
-        <input type="checkbox" onChange={onCheck} checked={value.isChecked} />
-        {edit ? (
-          <form onSubmit={handleEditedForm}>
-            <input
-              className="edit_input"
-              type="text"
-              onChange={handleInput}
-              value={editedText}
-            />
-          </form>
-        ) : (
-          <>
-            <div className="task" onDoubleClick={() => setEdit(true)}>
-              {value.todoTask}
-            </div>
-          </>
-        )}
-        <button className="delete_button" onClick={onDeleteTask}>
-          Delete
-        </button>
+        <input
+          className="todo_checkbox"
+          type="checkbox"
+          onChange={onCheck}
+          checked={value.isChecked}
+        />
+        <div className="field" onDoubleClick={() => setEdit(true)}>
+          {edit ? (
+            <form onSubmit={handleEditedForm}>
+              <input
+                className="edit_input"
+                type="text"
+                onChange={handleInput}
+                value={editedText}
+              />
+            </form>
+          ) : (
+            <>
+              <div className="task">{value.todoTask}</div>
+            </>
+          )}
+        </div>
+        <div>
+          <button className="delete_button" onClick={onDeleteTask}>
+            X
+          </button>
+        </div>
       </div>
     </>
   );

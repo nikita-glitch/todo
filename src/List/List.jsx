@@ -14,31 +14,34 @@ function List({
   deleteTodo,
   submitEdit,
   setChecked,
-  setAllChecked
+  setAllChecked,
 }) {
   const [input, setInput] = useState("");
-  const check = value.every(item => item.isChecked === true)
+  const check = value.every((item) => item.isChecked === true);
   const handleSubmitForm = (ev) => {
-    
     ev.preventDefault();
     if (!input) {
       return;
     }
     onAddElementClick(input);
-    setInput('');
-  }
+    setInput("");
+  };
   const handleInputForm = (ev) => {
     setInput(ev.target.value);
-
-  } 
+  };
   const handleSubmitEdit = (editText, item) => {
     submitEdit(item.id, editText);
-  }
+  };
   return (
     <div className="list">
-      <input className={value.length ? "visible_checkbox" : 'invisible_checkbox'} type="checkbox" onChange={setAllChecked} checked={check ? true : false}/>
-      <div className="add_element">
-        <form onSubmit={handleSubmitForm}>
+      <div className="add_todo">
+        <input
+          className={value.length ? "visible_checkbox" : "invisible_checkbox"}
+          type="checkbox"
+          onChange={setAllChecked}
+          checked={check ? true : false}
+        />
+        <form className="form" onSubmit={handleSubmitForm}>
           <input
             className="input_task"
             type="text"
@@ -50,7 +53,7 @@ function List({
       </div>
       {value.map((item) => (
         <TodoItem
-          key={item.id} 
+          key={item.id}
           value={item}
           onCheck={() => setChecked(item)}
           onSubmitEdit={(editText) => handleSubmitEdit(editText, item)}

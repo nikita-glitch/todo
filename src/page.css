@@ -1,5 +1,7 @@
-.input_task {
+.todo_header{
   display: flex;
-  margin-right: 10px;
-
+  justify-content: center;
+  color: rgba(175, 47, 47, 0.15);;
+  font-size: 100px;
+  font-weight: 100;
 }

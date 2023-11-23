@@ -25,11 +25,13 @@ const Footer = ({
 
   return (
     <div className="footer">
-      {completedTasks === 1 ? (
-        <>{completedTasks} item left</>
-      ) : (
-        <>{completedTasks} items left</>
-      )}
+      <div className="completed_tasks">
+        {completedTasks === 1 ? (
+          <>{completedTasks} item left</>
+        ) : (
+          <>{completedTasks} items left</>
+        )}
+      </div>
       <ul className="filters">
         <div className="filter_button" onClick={allButtonHandler}>
           All

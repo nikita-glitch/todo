@@ -1,17 +1,35 @@
 .list {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #d1d0d0;
+  font-size: 20px;
 }
 
-
-.add_element {
-    display: flex;
-    margin-bottom: 5px;
+.add_todo {
+  display: flex;
+  border-bottom: 1px solid #d1d0d0;
 }
-.invisible_checkbox{
-    display: none;
+
+.input_task {
+  border: 1px solid #fff;
+  font-size: 20px;
+  width: 482px;
+  height: 50px;
+
+}
+.input_task::placeholder{
+  opacity: 0.3;
+}
+
+.visible_checkbox {
+  margin-left: 15px;
+}
+
+.invisible_checkbox {
+  display: none;
+}
+.form {
+  margin-left: 30px;
 }

@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  border: 1px solid #d1d0d0;
+  padding: 10px;
+  border-top: 1px solid #ffffff;
+  color:#777;
+}
+
+.filters{
+  display: flex;
+  margin-left: 20%;
+}
+.filter_button{
+  margin-right: 10px;
+  cursor: pointer;
+}
+.filter_button:active {
+  border: 1px solid #999;
+}
+.filter_button:last-child{
+  margin-right: 0;
+}

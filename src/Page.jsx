@@ -72,13 +72,8 @@ function Page() {
   };
   return (
     <>
-      <h1
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        TODOS
+      <h1 className="todo_header">
+        todos
       </h1>
 
       <List
