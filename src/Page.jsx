@@ -75,7 +75,6 @@ function Page() {
       <h1 className="todo_header">
         todos
       </h1>
-
       <List
         value={allFlag ? listItem : activeFlag ? activeArray : complitedArray}
         onAddElementClick={addElement}
