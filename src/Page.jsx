@@ -83,6 +83,7 @@ function Page() {
         setChecked={setChecked}
         setAllChecked={setAllChecked}
       />
+      
       <Footer
         completedTasks={activeArray.length}
         setAllFlag={setAllFlag}
