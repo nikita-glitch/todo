@@ -1,21 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-export const todoSlice = createSlice({
-  name: 'todo', 
-  initialState: [],
-  reducers: {
-    addTodo:state => {return {
-      ...state,
-      todo: {
-        id: Date.now(),
-        todoTask: input,
-        isChecked: false,
-      },
-    }},
-    editTodo:{},
-    deleteTodo:{},
-    setOneChecked:{},
-    setAllChecked:{}
+let initialState = [];
+export const todoSlice = (state = initialState, action) => {
+  switch (action.type) {
+    case 'todo/addTodo':
+      return {
+        ...state,
+        todo: {
+          id: Date.now(),
+          todoTask: input,
+          isChecked: false,
+        },
+      };
+      default: return state;
   }
-})
-export default todoSlice.reducer
+};
