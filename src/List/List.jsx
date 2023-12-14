@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 import "./List.css";
+import { useDispatch } from "react-redux";
 
 // let reactState;
 // const setTask = (value) => {
@@ -8,29 +9,27 @@ import "./List.css";
 //   reactCore.render()
 // }
 
-function List({
-  value,
-  onAddElementClick,
-  deleteTodo,
-  submitEdit,
-  setChecked,
-  setAllChecked,
-}) {
+function List({ value }) {
   const [input, setInput] = useState("");
   const check = value.every((item) => item.isChecked === true);
+  const dispatch = useDispatch();
+
   const handleSubmitForm = (ev) => {
     ev.preventDefault();
     if (!input) {
       return;
     }
-    onAddElementClick(input);
+    dispatch({ type: "todo/addTodo", payload: input });
     setInput("");
   };
   const handleInputForm = (ev) => {
     setInput(ev.target.value);
   };
-  const handleSubmitEdit = (editText, item) => {
-    submitEdit(item.id, editText);
+  const setAllChecked = () => {
+    if (!value) {
+      return;
+    }
+    dispatch({ type: "todo/setAllChecked" });
   };
   return (
     <div className="list">
@@ -52,13 +51,7 @@ function List({
         </form>
       </div>
       {value.map((item) => (
-        <TodoItem
-          key={item.id}
-          value={item}
-          onCheck={() => setChecked(item)}
-          onSubmitEdit={(editText) => handleSubmitEdit(editText, item)}
-          onDeleteTask={() => deleteTodo(item)}
-        />
+        <TodoItem key={item.id} value={item} />
       ))}
     </div>
   );

@@ -24,11 +24,12 @@
 }
 
 .visible_checkbox {
-  margin-left: 15px;
+  margin:  0 0 0 15px;
 }
 
 .invisible_checkbox {
-  display: none;
+  margin:  0 0 0 15px;
+  visibility: hidden;
 }
 .form {
   margin-left: 30px;

@@ -1,22 +1,32 @@
 .footer {
   display: flex;
+  align-items: center;
   border: 1px solid #d1d0d0;
-  padding: 10px;
+  padding: 5px;
   border-top: 1px solid #ffffff;
   color:#777;
 }
 
 .filters{
+  margin: 0;
   display: flex;
-  margin-left: 20%;
+  padding: 0 130px 0 100px;
+  align-items: center;
 }
 .filter_button{
-  margin-right: 10px;
+  padding: 5px;
+  margin:  0 10px 0 0;
   cursor: pointer;
 }
-.filter_button:active {
+.filter_button_framed {
+  padding: 4px;
+  margin:  0 10px 0 0;
+  cursor: pointer;
   border: 1px solid #999;
 }
 .filter_button:last-child{
+  margin-right: 0;
+}
+.filter_button_framed:last-child{
   margin-right: 0;
 }

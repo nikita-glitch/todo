@@ -2,88 +2,22 @@ import React, { useState } from "react";
 import List from "./List/List";
 import "./page.css";
 import Footer from "./Footer";
+import { useDispatch, useSelector } from "react-redux";
 
 function Page() {
-  const [listItem, setListItem] = useState([]);
   const [allFlag, setAllFlag] = useState(true);
   const [activeFlag, setActiveFlag] = useState(false);
   const [completedFlag, setCompletedFlag] = useState(false);
-
-  const complitedArray = listItem.filter((item) => item.isChecked === true);
-  const activeArray = listItem.filter((item) => item.isChecked === false);
-
-  function addElement(input) {
-    const buf = [
-      ...listItem,
-      {
-        id: Date.now(),
-        todoTask: input,
-        isChecked: false,
-      },
-    ];
-    setListItem(buf);
-  }
-  function deleteTodo(item) {
-    const id = item.id;
-    const filteredBuf = listItem.filter((todo) => todo.id !== id);
-    setListItem(filteredBuf);
-  }
-
-  function submitEdit(id, editText) {
-    if (!editText) {
-      return;
-    }
-    let index = listItem.findIndex((item) => item.id === id);
-    if (index === -1) {
-      return;
-    }
-    const editBuf = listItem.slice();
-    editBuf[index].todoTask = editText;
-    setListItem(editBuf);
-  }
-
-  const setChecked = (item) => {
-    const { id, isChecked } = item;
-    const index = listItem.findIndex((todo) => todo.id === id);
-    const checkedBuf = listItem.slice();
-    checkedBuf[index].isChecked = !isChecked;
-    setListItem(checkedBuf);
-  };
-  const setAllChecked = () => {
-    if (!listItem) {
-      return
-    }
-    const arr = listItem.every((item) => item.isChecked === true);
-    if (arr) {
-      setListItem(
-        listItem.map((item) => {
-          item.isChecked = false;
-          return item;
-        })
-      );
-    } else {
-      setListItem(
-        listItem.map((item) => {
-          item.isChecked = true;
-          return item;
-        })
-      );
-    }
-  };
+  const todoList = useSelector((state) => state.todo);
+  
+  const activeArray = todoList.filter((todo) => todo.isChecked === false);
+  const complitedArray = todoList.filter((todo) => todo.isChecked === true);
   return (
     <>
-      <h1 className="todo_header">
-        todos
-      </h1>
+      <h1 className="todo_header">todos</h1>
       <List
-        value={allFlag ? listItem : activeFlag ? activeArray : complitedArray}
-        onAddElementClick={addElement}
-        deleteTodo={deleteTodo}
-        submitEdit={submitEdit}
-        setChecked={setChecked}
-        setAllChecked={setAllChecked}
+        value={allFlag ? todoList : activeFlag ? activeArray : complitedArray}
       />
-      
       <Footer
         completedTasks={activeArray.length}
         setAllFlag={setAllFlag}
