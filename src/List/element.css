@@ -30,6 +30,11 @@
 
 }
 
+.checked_element:last-child {
+  border-bottom: 0;
+
+}
+
 .checked_element:nth-child(n + 1) {
   text-decoration: line-through;
 }

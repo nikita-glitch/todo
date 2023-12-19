@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./element.css";
 import { useDispatch } from "react-redux";
+import { deleteTodo, editTodo, setCheckedTodo } from "../store/todoSlice";
 
 function TodoItem({ value }) {
   const [edit, setEdit] = useState(false);
@@ -12,11 +13,7 @@ function TodoItem({ value }) {
     if (!editedText) {
       return;
     }
-    dispatch({
-      type: "todo/editTodo",
-      payload: value.id,
-      editText: editedText,
-    });
+    dispatch(editTodo({ id: value.id, editedText: editedText }));
     setEdit(false);
   };
   const handleInput = (ev) => {
@@ -27,10 +24,10 @@ function TodoItem({ value }) {
     setEdit(true);
   };
   const onDeleteTask = () => {
-    dispatch({ type: "todo/deleteTodo", payload: value.id });
+    dispatch(deleteTodo(value.id));
   };
   const onCheck = () => {
-    dispatch({ type: "todo/setCheckedTodo", payload: value.id });
+    dispatch(setCheckedTodo(value.id));
   };
   const handleBlur = () => {
     setEdit(false);

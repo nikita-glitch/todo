@@ -1,8 +1,10 @@
-let initialState = [];
+import { createSlice } from "@reduxjs/toolkit";
 
-export const todoReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "todo/addTodo":
+export const todoSlice = createSlice({
+  name: 'todo',
+  initialState: [],
+  reducers: {
+    addTodo: (state, action) => {
       return [
         ...state,
         {
@@ -11,20 +13,22 @@ export const todoReducer = (state = initialState, action) => {
           isChecked: false,
         },
       ];
-    case "todo/deleteTodo":
-      let filteredBuf = state.filter((todo) => todo.id !== action.payload);
-      return filteredBuf;
-    case "todo/editTodo":
+    },
+    deleteTodo: (state, action) => {
+      return state.filter((todo) => todo.id !== action.payload);
+    },
+    editTodo: (state, action) => {
       return state.map((todo) => {
-        if (todo.id !== action.payload) {
+        if (todo.id !== action.payload.id) {
           return todo;
         }
         return {
           ...todo,
-          todoTask: action.editText
-        }
+          todoTask: action.payload.editedText,
+        };
       });
-    case "todo/setCheckedTodo":
+    },
+    setCheckedTodo: (state, action) => {
       return state.map((todo) => {
         if (todo.id !== action.payload) {
           return todo;
@@ -34,7 +38,8 @@ export const todoReducer = (state = initialState, action) => {
           isChecked: !todo.isChecked,
         };
       });
-    case "todo/setAllChecked":
+    },
+    setAllChecked: (state) => {
       let arr = state.every((todo) => todo.isChecked === true);
       if (arr) {
         return state.map((todo) => {
@@ -45,7 +50,8 @@ export const todoReducer = (state = initialState, action) => {
           return { ...todo, isChecked: true };
         });
       }
-    default:
-      return state;
-  }
-};
+    },
+  },
+});
+export const { addTodo, deleteTodo, editTodo, setCheckedTodo, setAllChecked } = todoSlice.actions
+export default todoSlice.reducer

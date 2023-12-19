@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 import "./List.css";
 import { useDispatch } from "react-redux";
+import { addTodo, setAllChecked } from "../store/todoSlice";
 
 // let reactState;
 // const setTask = (value) => {
@@ -19,17 +20,17 @@ function List({ value }) {
     if (!input) {
       return;
     }
-    dispatch({ type: "todo/addTodo", payload: input });
+    dispatch(addTodo(input));
     setInput("");
   };
   const handleInputForm = (ev) => {
     setInput(ev.target.value);
   };
-  const setAllChecked = () => {
+  const setAllCheck = () => {
     if (!value) {
       return;
     }
-    dispatch({ type: "todo/setAllChecked" });
+    dispatch(setAllChecked());
   };
   return (
     <div className="list">
@@ -37,7 +38,7 @@ function List({ value }) {
         <input
           className={value.length ? "visible_checkbox" : "invisible_checkbox"}
           type="checkbox"
-          onChange={setAllChecked}
+          onChange={setAllCheck}
           checked={check ? true : false}
         />
         <form className="form" onSubmit={handleSubmitForm}>
