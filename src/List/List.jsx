@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 import "./List.css";
 import { useDispatch } from "react-redux";
-import { addTodo, setAllChecked } from "../store/todoSlice";
+import { settedAllChecked, todoAdded } from "../store/todoSlice";
 
 // let reactState;
 // const setTask = (value) => {
@@ -20,17 +20,17 @@ function List({ value }) {
     if (!input) {
       return;
     }
-    dispatch(addTodo(input));
+    dispatch(todoAdded(input));
     setInput("");
   };
   const handleInputForm = (ev) => {
     setInput(ev.target.value);
   };
-  const setAllCheck = () => {
+  const setAllChecked = () => {
     if (!value) {
       return;
     }
-    dispatch(setAllChecked());
+    dispatch(settedAllChecked());
   };
   return (
     <div className="list">
@@ -38,7 +38,7 @@ function List({ value }) {
         <input
           className={value.length ? "visible_checkbox" : "invisible_checkbox"}
           type="checkbox"
-          onChange={setAllCheck}
+          onChange={setAllChecked}
           checked={check ? true : false}
         />
         <form className="form" onSubmit={handleSubmitForm}>

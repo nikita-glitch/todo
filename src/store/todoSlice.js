@@ -4,7 +4,7 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState: [],
   reducers: {
-    addTodo: (state, action) => {
+    todoAdded(state, action) {
       return [
         ...state,
         {
@@ -14,10 +14,10 @@ export const todoSlice = createSlice({
         },
       ];
     },
-    deleteTodo: (state, action) => {
+    todoDeleted(state, action) {
       return state.filter((todo) => todo.id !== action.payload);
     },
-    editTodo: (state, action) => {
+    todoEdited: (state, action) => {
       return state.map((todo) => {
         if (todo.id !== action.payload.id) {
           return todo;
@@ -28,7 +28,7 @@ export const todoSlice = createSlice({
         };
       });
     },
-    setCheckedTodo: (state, action) => {
+    todoSettedChecked(state, action) {
       return state.map((todo) => {
         if (todo.id !== action.payload) {
           return todo;
@@ -39,7 +39,7 @@ export const todoSlice = createSlice({
         };
       });
     },
-    setAllChecked: (state) => {
+    settedAllChecked(state) {
       let arr = state.every((todo) => todo.isChecked === true);
       if (arr) {
         return state.map((todo) => {
@@ -53,5 +53,5 @@ export const todoSlice = createSlice({
     },
   },
 });
-export const { addTodo, deleteTodo, editTodo, setCheckedTodo, setAllChecked } = todoSlice.actions
+export const { todoAdded, todoDeleted, todoEdited, todoSettedChecked, settedAllChecked } = todoSlice.actions
 export default todoSlice.reducer
