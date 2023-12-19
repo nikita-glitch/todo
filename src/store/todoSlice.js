@@ -17,7 +17,7 @@ export const todoSlice = createSlice({
     todoDeleted(state, action) {
       return state.filter((todo) => todo.id !== action.payload);
     },
-    todoEdited: (state, action) => {
+    todoEdited(state, action) {
       return state.map((todo) => {
         if (todo.id !== action.payload.id) {
           return todo;
