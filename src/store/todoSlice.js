@@ -1,57 +1,55 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const todoSlice = createSlice({
-  name: 'todo',
-  initialState: [],
+  name: "todo",
+  initialState: { todos: [], filter: "all" },
   reducers: {
     todoAdded(state, action) {
-      return [
-        ...state,
-        {
-          id: Date.now(),
-          todoTask: action.payload,
-          isChecked: false,
-        },
-      ];
+      state.todos.push({
+        id: Date.now(),
+        todoTask: action.payload,
+        isChecked: false,
+      });
     },
     todoDeleted(state, action) {
-      return state.filter((todo) => todo.id !== action.payload);
+      const id = action.payload;
+      let index = state.todos.findIndex((todo) => todo.id === id);
+      state.todos.splice(index, 1);
+      //return ({todos: state.todos.filter((todo) => todo.id !== id), filter: state.filter});
     },
     todoEdited(state, action) {
-      return state.map((todo) => {
-        if (todo.id !== action.payload.id) {
-          return todo;
-        }
-        return {
-          ...todo,
-          todoTask: action.payload.editedText,
-        };
-      });
+      const { id, editedText } = action.payload;
+      let todo = state.todos.find((todo) => todo.id === id);
+      todo.todoTask = editedText;
     },
     todoSettedChecked(state, action) {
-      return state.map((todo) => {
-        if (todo.id !== action.payload) {
-          return todo;
-        }
-        return {
-          ...todo,
-          isChecked: !todo.isChecked,
-        };
-      });
+      const id = action.payload;
+      let todo = state.todos.find((todo) => todo.id === id);
+      todo.isChecked = !todo.isChecked;
     },
     settedAllChecked(state) {
-      let arr = state.every((todo) => todo.isChecked === true);
+      let arr = state.todos.every((todo) => todo.isChecked);
       if (arr) {
-        return state.map((todo) => {
-          return { ...todo, isChecked: false };
+        state.todos.forEach((todo) => {
+          todo.isChecked = false;
         });
       } else {
-        return state.map((todo) => {
-          return { ...todo, isChecked: true };
+        state.todos.forEach((todo) => {
+          todo.isChecked = true;
         });
       }
     },
+    settedFilter(state, action) {
+      state.filter = action.payload;
+    },
   },
 });
-export const { todoAdded, todoDeleted, todoEdited, todoSettedChecked, settedAllChecked } = todoSlice.actions
-export default todoSlice.reducer
+export const {
+  todoAdded,
+  todoDeleted,
+  todoEdited,
+  todoSettedChecked,
+  settedAllChecked,
+  settedFilter,
+} = todoSlice.actions;
+export default todoSlice.reducer;

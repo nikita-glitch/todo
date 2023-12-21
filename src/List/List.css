@@ -5,7 +5,6 @@
   flex-direction: column;
   border: 1px solid #d1d0d0;
   font-size: 20px;
-  
 }
 
 .add_todo {
@@ -20,18 +19,20 @@
   height: 50px;
 
 }
-.input_task::placeholder{
+
+.input_task::placeholder {
   opacity: 0.3;
 }
 
 .visible_checkbox {
-  margin:  0 0 0 15px;
+  margin: 0 0 0 15px;
 }
 
 .invisible_checkbox {
-  margin:  0 0 0 15px;
+  margin: 0 0 0 15px;
   visibility: hidden;
 }
+
 .form {
   margin-left: 30px;
 }

@@ -3,7 +3,7 @@ import "./element.css";
 import { useDispatch } from "react-redux";
 import { todoDeleted, todoEdited, todoSettedChecked } from "../store/todoSlice";
 
-function TodoItem({ value }) {
+const TodoItem = ({ value }) => {
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(value.todoTask);
   const dispatch = useDispatch();
@@ -67,5 +67,5 @@ function TodoItem({ value }) {
       </div>
     </>
   );
-}
+};
 export default TodoItem;

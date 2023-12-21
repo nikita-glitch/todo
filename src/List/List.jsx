@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TodoItem from "./TodoItem";
 import "./List.css";
-import { useDispatch } from "react-redux";
-import { settedAllChecked, todoAdded } from "../store/todoSlice";
+import AddTodo from "./AddTodo";
+import { useSelector } from "react-redux";
 
 // let reactState;
 // const setTask = (value) => {
@@ -10,51 +10,24 @@ import { settedAllChecked, todoAdded } from "../store/todoSlice";
 //   reactCore.render()
 // }
 
-function List({ value }) {
-  const [input, setInput] = useState("");
-  const check = value.every((item) => item.isChecked === true);
-  const dispatch = useDispatch();
-
-  const handleSubmitForm = (ev) => {
-    ev.preventDefault();
-    if (!input) {
-      return;
+const List = () => {
+  const todo = useSelector((state) => {
+    switch (state.todo.filter) {
+      case "all":
+        return state.todo.todos;
+      case "active":
+        return state.todo.todos.filter((todo) => !todo.isChecked);
+      case "completed":
+        return state.todo.todos.filter((todo) => todo.isChecked);
     }
-    dispatch(todoAdded(input));
-    setInput("");
-  };
-  const handleInputForm = (ev) => {
-    setInput(ev.target.value);
-  };
-  const setAllChecked = () => {
-    if (!value) {
-      return;
-    }
-    dispatch(settedAllChecked());
-  };
+  });
   return (
     <div className="list">
-      <div className="add_todo">
-        <input
-          className={value.length ? "visible_checkbox" : "invisible_checkbox"}
-          type="checkbox"
-          onChange={setAllChecked}
-          checked={check ? true : false}
-        />
-        <form className="form" onSubmit={handleSubmitForm}>
-          <input
-            className="input_task"
-            type="text"
-            placeholder="What needs to be done?"
-            onChange={handleInputForm}
-            value={input}
-          />
-        </form>
-      </div>
-      {value.map((item) => (
+      <AddTodo />
+      {todo.map((item) => (
         <TodoItem key={item.id} value={item} />
       ))}
     </div>
   );
-}
+};
 export default List;

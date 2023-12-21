@@ -1,6 +1,6 @@
-import React from 'react';
-import Page from './Page';
-import './app.css'
+import React from "react";
+import Page from "./Page";
+import "./app.css";
 
 function App() {
   return (
@@ -8,7 +8,5 @@ function App() {
       <Page />
     </div>
   );
-
 }
-
 export default App;
