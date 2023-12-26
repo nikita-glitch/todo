@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem";
 import "./List.css";
 import AddTodo from "./AddTodo";
 import { useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
 
 // let reactState;
 // const setTask = (value) => {
@@ -11,16 +12,7 @@ import { useSelector } from "react-redux";
 // }
 
 const List = () => {
-  const todo = useSelector((state) => {
-    switch (state.todo.filter) {
-      case "all":
-        return state.todo.todos;
-      case "active":
-        return state.todo.todos.filter((todo) => !todo.isChecked);
-      case "completed":
-        return state.todo.todos.filter((todo) => todo.isChecked);
-    }
-  });
+  const todo = useSelector(selector);
   return (
     <div className="list">
       <AddTodo />
@@ -31,3 +23,21 @@ const List = () => {
   );
 };
 export default List;
+
+const selector = createSelector(
+  (state) => state.todo.todos,
+  (state) => state.todo.filter,
+
+  (todos, filter) => {
+    if (filter === "all") {
+      return todos;
+    }
+
+    return todos.filter((todo) => {
+      if (filter === "active") {
+        return !todo.isChecked;
+      }
+      return todo.isChecked;
+    });
+  }
+);
