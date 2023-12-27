@@ -13,6 +13,7 @@ exports.getTodoList = async (req, res) => {
     res.json(todos);
   } catch (error) {
     console.log(error);
+    return res.json({ message: "error" });
   }
 };
 exports.deleteTodo = async (req, res) => {
@@ -30,6 +31,7 @@ exports.deleteTodo = async (req, res) => {
     res.status(200).json({ message: "Todo deleted succsessfully" });
   } catch (error) {
     console.log(error);
+    return res.json({ message: "error" });
   }
 };
 exports.updateTodo = async (req, res) => {
@@ -52,6 +54,7 @@ exports.updateTodo = async (req, res) => {
     res.status(200).json({ message: "Todo updated succsessfully" });
   } catch (error) {
     console.log(error);
+    return res.json({ message: "error" });
   }
 };
 exports.createTodo = async (req, res) => {
@@ -66,5 +69,6 @@ exports.createTodo = async (req, res) => {
     res.status(201).json({ message: "Todo created succsessfully" });
   } catch (error) {
     console.log(error);
+    return res.json({ message: "error" });
   }
 };

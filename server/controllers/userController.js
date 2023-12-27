@@ -10,12 +10,12 @@ exports.registrationUser = async (req, res) => {
       return res.json({ message: "User alredy exist" });
     }
     const hashedPassword = await bcrypt.hash(password, 8);
-    let user = new User({name: name, email: email, password: hashedPassword});
+    let user = new User({ name: name, email: email, password: hashedPassword });
     await user.save();
-    res.status(200).json({ message: 'User was created succsessfully' })
+    res.status(200).json({ message: "User was created succsessfully" });
   } catch (error) {
     console.log(error);
-    res.json({ message: 'error' })
+    return res.json({ message: "error" });
   }
 };
 
@@ -28,10 +28,12 @@ exports.loginUser = async (req, res) => {
     if (!isPasswordCorrect || !person) {
       return res.status(400).json({ message: "Wrong email or password" });
     }
-    const token = jwt.sign({ data: person._id }, 'new-secret-signature', { expiresIn: "1h" });
-    //res.status(200).json({ message: 'User was logged in' });
+    const token = jwt.sign({ data: person._id }, "new-secret-signature", {
+      expiresIn: "1h",
+    });
     return res.json(token);
   } catch (error) {
     console.log(error);
+    return res.json({ message: "error" });
   }
 };
