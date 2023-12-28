@@ -19,14 +19,14 @@ exports.getTodoList = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
   try {
     const id = req.id;
-    const todoId = req.body;
+    const todoId = req.body.id;
     const user = await User.findById(id);
-    isUserTodo = user.todos.find((item) => item.toString() === todoId.id);
+    const isUserTodo = user.todos.find((item) => item.toString() === todoId);
     if (!isUserTodo) {
-      return res.status(403).json({ message: "Error" });
+      return res.status(400).json({ message: "Todo doesnt exist" });
     }
-    await Todo.findByIdAndDelete(todoId.id);
-    user.todos = user.todos.filter((item) => item.toString() !== todoId.id);
+    await Todo.findByIdAndDelete(todoId);
+    user.todos = user.todos.filter((item) => item.toString() !== todoId);
     await user.save();
     res.status(200).json({ message: "Todo deleted succsessfully" });
   } catch (error) {
@@ -39,9 +39,9 @@ exports.updateTodo = async (req, res) => {
     const id = req.id;
     const { todoId, todoTask, isChecked } = req.body;
     const user = await User.findById(id);
-    isUserTodo = user.todos.find((item) => item.toString() === todoId);
+    const isUserTodo = user.todos.find((item) => item.toString() === todoId);
     if (!isUserTodo) {
-      return res.status(403).json({ message: "Error" });
+      return res.status(400).json({ message: "Error" });
     }
     if (todoTask && isChecked) {
       await Todo.findByIdAndUpdate(todoId, { todoTask: todoTask });

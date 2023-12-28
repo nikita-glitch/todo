@@ -23,15 +23,19 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const person = await User.findOne({ email });
-    const isPasswordCorrect = await bcrypt.compare(password, person.password);
-
-    if (!isPasswordCorrect || !person) {
+    if (!person) {
       return res.status(400).json({ message: "Wrong email or password" });
     }
-    const token = jwt.sign({ data: person._id }, "new-secret-signature", {
-      expiresIn: "1h",
-    });
-    return res.json(token);
+    const isPasswordCorrect = await bcrypt.compare(password, person.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Wrong email or password" });
+    }
+    const token = jwt.sign(
+      { data: person._id }, 
+      "new-secret-signature", 
+      { expiresIn: "1h" }
+    );
+    res.json(token);
   } catch (error) {
     console.log(error);
     return res.json({ message: "error" });

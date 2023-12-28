@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 exports.check = (req, res, next) => {
   try {
@@ -6,7 +6,7 @@ exports.check = (req, res, next) => {
     if (!token || token === null) {
       return res.status(401).json({ message: "Unauthoried" });
     }
-    const decodedToken = jwt.verify(token, 'new-secret-signature');
+    const decodedToken = jwt.verify(token, "new-secret-signature");
     req.id = decodedToken.data;
     next();
   } catch (error) {
