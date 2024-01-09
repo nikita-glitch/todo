@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const rootRouter = require("./routes/index");
+const errorHandler = require('./middleware/handleError')
 const app = express();
 
 const dbUrl =
@@ -11,6 +12,7 @@ const PORT = 5000;
 app.use(express.json());
 app.use(cors());
 app.use("/home", rootRouter);
+app.use(errorHandler)
 
 const main = async () => {
   try {

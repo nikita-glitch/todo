@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 exports.registrationUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const person = await User.findOne({ email });
+    const person = await User.find({ email });
     if (person) {
       return res.json({ message: "User alredy exist" });
     }
@@ -22,7 +22,7 @@ exports.registrationUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const person = await User.findOne({ email });
+    const person = await User.find({ email });
     if (!person) {
       return res.status(400).json({ message: "Wrong email or password" });
     }
@@ -32,7 +32,7 @@ exports.loginUser = async (req, res) => {
     }
     const token = jwt.sign(
       { data: person._id }, 
-      "new-secret-signature", 
+      process.env.SECRET_KEY, 
       { expiresIn: "1h" }
     );
     res.json(token);

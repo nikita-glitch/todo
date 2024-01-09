@@ -1,12 +1,16 @@
 const jwt = require("jsonwebtoken");
+const User = require("../schemas/User");
 
-exports.check = (req, res, next) => {
+exports.check = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
     if (!token || token === null) {
       return res.status(401).json({ message: "Unauthoried" });
     }
-    const decodedToken = jwt.verify(token, "new-secret-signature");
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY); //   есть ли пользователь в базе
+    if (!await User.findById(decodedToken.data)) {
+      throw new Error();
+    }
     req.id = decodedToken.data;
     next();
   } catch (error) {
