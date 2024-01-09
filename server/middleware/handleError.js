@@ -1,13 +1,8 @@
-class ValidationError extends Error {
-  constructor(status, message) {
-    super();
-    this.message = message;
-    this.status = status;
+const ValidationError = require("../error/error");
+
+exports.handleError = (err, req, res, next) => {
+  if (err instanceof ValidationError) {
+    return res.status(err.status).json({ message: err.message });
   }
-  static unautorizedError(message) {
-    return new ValidationError(401, message);
-  }
-  static invalidTokenError(message) {
-    return new ValidationError(401, message)
-  }
-}
+  return res.status(500).json({ message: 'Unexpected error' });
+};
