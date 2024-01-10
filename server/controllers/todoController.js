@@ -1,3 +1,4 @@
+const ValidationError = require("../error/error");
 const Todo = require("../schemas/ToDo");
 const User = require("../schemas/User");
 
@@ -8,42 +9,39 @@ exports.getTodoList = async (req, res) => {
     res.json(todos);
   } catch (error) {
     console.log(error);
-    return res.json({ message: "error" });
+    next(error)
   }
 };
-exports.deleteTodo = async (req, res) => {
+exports.deleteTodo = async (req, res, next) => {
   try {
     const todoId = req.body.id;
     if (!todoId) {
-      res.status(400).json({ message: "Error" });
+      return next(ValidationError.notFound('Todo does not exist'))
     }
     await Todo.findByIdAndDelete(todoId);
     res.status(200).json({ message: "Todo deleted succsessfully" });
   } catch (error) {
     console.log(error);
-    return res.json({ message: "error" });
+    next(error)
   }
 };
 exports.updateTodo = async (req, res, next) => {
   try {
     const { todoId, todoTask, isChecked } = req.body;
-
-    const fieldsToUpdate = {
-      isChecked,
-    };
-
+    // const fieldsToUpdate = {
+    //   isChecked,
+    // };
+    // if (todoTask) {
+    //   fieldsToUpdate.todoTask = todoTask;
+    // }
     if (todoTask) {
-      fieldsToUpdate.todoTask = todoTask;
+      await Todo.findByIdAndUpdate(todoId, todoTask);
+    } else {
+      await Todo.findByIdAndUpdate(todoId, isChecked);
     }
-    await Todo.findByIdAndUpdate(todoId, fieldsToUpdate);
     res.status(200).json({ message: "Todo updated succsessfully" });
   } catch (error) {
-    console.log(error);
-    if (error.ValidationError) {
-      return next(new ValidationError(403, "message"));
-    }
-    next(err);
-    return res.json({ message: "error" });
+    next(error);
   }
 };
 exports.createTodo = async (req, res) => {
@@ -54,19 +52,18 @@ exports.createTodo = async (req, res) => {
     await todo.save();
     res.status(201).json({ message: "Todo created succsessfully" });
   } catch (error) {
-    console.log(error);
-    return res.json({ message: "error" });
+    next(error)
   }
 };
 
-class ValidationError extends Error {
-  // constructor(status, message, extraData) {
-  //   super(message);
-  //   this.status = status;
-  //   this.extraData=extraData
-  // }
-}
+// class ValidationError extends Error {
+//   // constructor(status, message, extraData) {
+//   //   super(message);
+//   //   this.status = status;
+//   //   this.extraData=extraData
+//   // }
+// }
 
-function errorLogger(error, req, res) {
-  res.status(error.status).json({ message: error.message });
-}
+// function errorLogger(error, req, res) {
+//   res.status(error.status).json({ message: error.message });
+// }
